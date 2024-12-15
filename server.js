@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require("path");
 const session = require('express-session');
-const port = process.argv[2]
+const port = process.env.PORT || 3000;
 require("dotenv").config({ path: path.resolve(__dirname, 'auth/.env') }) 
 const { MongoClient, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@gorbatyfinancialservice.hwyzw.mongodb.net/?retryWrites=true&w=majority&appName=GorbatyFinancialServices`;
