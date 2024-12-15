@@ -1,5 +1,9 @@
 # Gorbaty Financial Services Website Info
 
+## Important notes
+
+The api currently used in this version is rate limited at 25 requests a day. Additionally, nothing on this website should be taken as financial advice.
+
 ## Submission
 
 Aaron Gorbaty: 118-629-230
@@ -14,6 +18,7 @@ This is meant to be the start of a financial platform app that would help users 
 
 ## Youtube link
 
+https://youtu.be/8ZhMR1NPgVg
 
 ## APIs information
 
