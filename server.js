@@ -7,7 +7,7 @@ require("dotenv").config({ path: path.resolve(__dirname, 'auth/.env') })
 const { MongoClient, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@gorbatyfinancialservice.hwyzw.mongodb.net/?retryWrites=true&w=majority&appName=GorbatyFinancialServices`;
 const client = new MongoClient(uri);
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API;
 
 app.use(express.urlencoded({ extended: true }));
