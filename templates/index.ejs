@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gorbaty Financial Services</title>
+    <link rel="stylesheet" href="../styles.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Gorbaty Financial Services</h1>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <h2>Welcome</h2>
+            <p>Please log in or sign up to access personalized financial strategies.</p>
+            <div class="button-container">
+                <button onclick="window.location.href='/login'">Log In</button>
+                <button onclick="window.location.href='/sign-up'">Sign Up</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gorbaty Financial Services. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Check cookies for user session
+        document.addEventListener("DOMContentLoaded", () => {
+            const loggedIn = document.cookie.includes("loggedIn=true");
+            if (loggedIn) {
+                alert("Welcome back! You are already logged in.");
+                window.location.href = '/dashboard'; // Redirect to dashboard
+            }
+        });
+    </script>
+</body>
+
+</html>

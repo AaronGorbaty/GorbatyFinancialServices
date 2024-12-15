@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Sign Up</title>
+</head>
+<body>
+    <h1>Account Set Up</h1>
+    <form id="signupform" method="POST" onsubmit="userSignUp(event)" action="/process-signup">
+        <input type="email" id="email" placeholder="Email" required name="email"/>
+        <input type="text" id="username" placeholder="Username" required name="username"/>
+        <input type="password" id="password" placeholder="Password" required name="password"/>
+        <button type="submit">Create Account</button>
+    </form>
+    <script>
+        async function userSignUp(event) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+            const userConfirmed = window.confirm(
+                `Please confirm your email and username\n` +
+                `Email: ${email}` +
+                `Username: ${username}`
+            );
+
+            if (!userConfirmed) {
+                event.preventDefault();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+/* styles.css */
+
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+header {
+    width: 100%;
+    padding: 20px 0;
+    background: #1e1e1e;
+    text-align: center;
+    border-bottom: 2px solid #ff6f61;
+}
+
+header h1 {
+    color: #ff6f61;
+    text-shadow: 0 0 10px #ff6f61;
+    font-size: 2.5rem;
+}
+
+/* Main Container */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    border-radius: 10px;
+    background: #1c1c1c;
+    box-shadow: 0 0 20px 5px #3e3e3e;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #4caf50;
+    text-shadow: 0 0 10px #4caf50;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+form label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #e0e0e0;
+}
+
+form input, form button {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form input {
+    background: #2c2c2c;
+    color: #e0e0e0;
+}
+
+form button {
+    background: linear-gradient(45deg, #ff6f61, #4caf50);
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 0 0 5px #fff;
+    box-shadow: 0 0 10px #4caf50;
+    transition: transform 0.3s;
+}
+
+form button:hover {
+    transform: scale(1.05);
+}
+
+/* Buttons */
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+    background: linear-gradient(45deg, #ff6f61, #4caf50);
+    box-shadow: 0 0 10px #4caf50;
+    transition: transform 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #4caf50;
+}
+
+/* List Styles for Portfolios */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 15px;
+    background: #2c2c2c;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px #4caf50;
+}
+
+ul li strong {
+    color: #ff6f61;
+}
+
+ul li button {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    color: #ff6f61;
+    cursor: pointer;
+    text-shadow: none;
+    box-shadow: none;
+    transition: transform 0.3s, color 0.3s;
+}
+
+ul li button:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #aaaaaa;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome <%- username %>!</h1>
+
+    <h2>Your Portfolios</h2>
+
+    <% if (portfolios && portfolios.length > 0) { %>
+        <ul>
+            <% portfolios.forEach(function(portfolio) { %>
+                <li>
+                    
+                    <strong>Portfolio Name:</strong> <%= portfolio.name %> <button onclick="deletePortfolio('<%= portfolio.name %>')" style="background: none; border: none; cursor: pointer;" title="Delete Portfolio"> 🗑️ </button> <br>
+                    <strong>Total Value:</strong> $<%= portfolio.totalValue %>
+                    <ul>
+                        <% portfolio.positions.forEach(function(position) { %>
+                            <li>
+                                <strong>Ticker:</strong> <%= position.ticker %>, 
+                                <strong>Quantity:</strong> <%= position.quantity %>, 
+                                <strong>Price:</strong> $<%= position.price.toFixed(2) %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </li>
+            <% }); %>
+        </ul>
+
+        <h3>Total Value of All Portfolios:</h3>
+        <p><strong>$<%= totalPortfolioValue %></strong></p>
+    <% } else { %>
+        <p>You have no portfolios. Add one below!</p>
+    <% } %>
+
+    <h2>Add a New Portfolio</h2>
+    <form action="/add-portfolio" method="POST">
+        <label for="portfolioName">Portfolio Name:</label>
+        <input type="text" name="portfolioName" id="portfolioName" required>
+        <div id="positions">
+            <label>Position 1:</label>
+            <input type="text" name="tickers[]" placeholder="Ticker" required>
+            <input type="number" name="quantities[]" placeholder="Quantity" required>
+        </div>
+        <button type="button" onclick="addPosition()">Add Position</button>
+        <button type="submit">Save Portfolio</button>
+    </form>
+    <br>
+    <button onclick="window.location.href='/logout'"> Log out </button> <br>
+
+
+    <script>
+        let positionCount = 1;
+        function addPosition() {
+            positionCount++;
+            const positionsDiv = document.getElementById('positions');
+            const positionHTML = `
+                <div>
+                    <label>Position ${positionCount}:</label>
+                    <input type="text" name="tickers[]" placeholder="Ticker" required>
+                    <input type="number" name="quantities[]" placeholder="Quantity" required>
+                </div>`;
+            positionsDiv.insertAdjacentHTML('beforeend', positionHTML);
+        }
+
+        async function deletePortfolio(portfolioName) {
+            if (confirm(`Are you sure you want to delete the portfolio "${portfolioName}"?`)) {
+                await fetch('/delete-portfolio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ portfolioName })
+                });
+                window.location.reload(); // Refresh the dashboard
+            }
+        }
+    </script>
+</body>
+</html>
