@@ -13,6 +13,9 @@ const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// REMOVE: FOR TESTING
+console.log("API Key:", process.env.ALPHA_VANTAGE_API_KEY);
+
 // configuration for user session info
 app.use(session({
     secret: 'your-secret-key',
@@ -89,8 +92,10 @@ app.get('/dashboard', async (req, res) => {
                     console.error(`Failed to fetch data for ticker ${ticker}: ${response.statusText}`);
                     continue;
                 }
-                const data = await response.json();
 
+                console.log("API Response:", response);
+                const data = await response.json();
+                console.log(data)
                 const price = parseFloat(data['Global Quote']['05. price'] || 0);
                 const value = price * quantity;
 
