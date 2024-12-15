@@ -72,7 +72,7 @@ app.get('/dashboard', async (req, res) => {
         const portfolios = req.session.user.portfolios || [];
         const portfolioData = [];
 
-        // Fetch stock prices for each portfolio
+        //fetch stock prices for each portfolio to sum them all up
         for (const portfolio of portfolios) {
             let totalValue = 0;
             const positions = [];
@@ -80,7 +80,7 @@ app.get('/dashboard', async (req, res) => {
             for (const position of portfolio.positions) {
                 const { ticker, quantity } = position;
 
-                // Fetch live price for the ticker
+                //fetching ticker info from alpha vantage
                 const response = await fetch(
                     `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${ALPHA_VANTAGE_API_KEY}`
                 );
@@ -125,9 +125,9 @@ app.post("/process-login", express.urlencoded({ extended: true }), async (req, r
     const formattedEmail = email.toLowerCase();
     try {
         const applications = db.collection(process.env.MONGO_COLLECTION);
-        const user = await applications.findOne({ email: formattedEmail }); // Use findOne for single document query
+        const user = await applications.findOne({ email: formattedEmail }); // finding logged user
         if (user) {
-            const passwordMatch = await bcrypt.compare(password, user.password); // Compare hashed password
+            const passwordMatch = await bcrypt.compare(password, user.password);
             if (passwordMatch) {
                 //save user data in session
                 req.session.user = {
@@ -162,7 +162,7 @@ app.post("/process-signup", express.urlencoded({ extended: true }), async (req, 
         } else {
             bcrypt.genSalt(10, function (err, Salt) {
 
-                // The bcrypt is used for encrypting password.
+                // encrypting password for save storage
                 bcrypt.hash(password, Salt, async function (err, hash) {
             
                     if (err) {
@@ -179,7 +179,7 @@ app.post("/process-signup", express.urlencoded({ extended: true }), async (req, 
                     
                     const result = await applications.insertOne(newUser);
                     try {
-                        // Save user data in session
+                        //save user data in session
                         req.session.user = {
                             id: result.insertedId,
                             username: newUser.username,
@@ -220,33 +220,33 @@ app.post('/add-portfolio', async (req, res) => {
 
     const { portfolioName, tickers, quantities } = req.body;
 
-    // Create positions array
+    //positions array
     const positions = tickers.map((ticker, index) => ({
         ticker: ticker,
         quantity: parseInt(quantities[index], 10),
     }));
 
-    // Create a new portfolio object
+    //portfolio object
     const newPortfolio = {
         name: portfolioName,
         positions: positions
     };
 
     try {
-        // Update the user's portfolios in the database
+        //update the user's portfolios in the database
         const applications = db.collection(process.env.MONGO_COLLECTION);
         const result = await applications.updateOne(
             { email: req.session.user.email },
             { $addToSet: { portfolios: newPortfolio } }
         );
 
-        // Update session data
+        //update session data
         if (!req.session.user.portfolios) {
             req.session.user.portfolios = [];
         }
         req.session.user.portfolios.push(newPortfolio);
 
-        // Redirect to dashboard for consistent data formatting
+        //redirect to dashboard for consistent data formatting
         res.redirect('/dashboard');
     } catch (error) {
         console.error("Error updating user's portfolios:", error);
@@ -266,7 +266,7 @@ app.post('/delete-portfolio', async (req, res) => {
             (portfolio) => portfolio.name !== portfolioName
         );
 
-        // Remove the portfolio from the database
+        //remove the portfolio from the database
         const applications = db.collection(process.env.MONGO_COLLECTION);
         const result = await applications.updateOne(
             { email: req.session.user.email },
